@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+
+<CascadingValue Value="this">
+    <div class="page">
+        <div class="sidebar">
+            <CascadingValue Value="@StartOverCallback">
+                <NavMenu Title="@Title" IsBackButtonVisible="@IsBackButtonVisible"/>
+            </CascadingValue>
+        </div>
+
+        <div class="main">
+            <div class="top-row px-4">
+                <a href="https://github.com/timschneeb/" target="_blank">About</a>
+            </div>
+
+            <div class="content px-4">
+                @Body
+            </div>
+        </div>
+    </div>
+</CascadingValue>
+
+@code {
+
+    public Action? StartOverCallback { set; get; }
+    
+    private string? _title;
+    public string Title
+    {
+        get => _title ?? string.Empty;
+        set
+        {
+            _title = value;
+            InvokeAsync(StateHasChanged);
+        }
+    }
+    
+    private bool? _isBackButtonVisible;
+    public bool IsBackButtonVisible
+    {
+        get => _isBackButtonVisible ?? false;
+        set
+        {
+            _isBackButtonVisible = value;
+            InvokeAsync(StateHasChanged);
+        }
+    }
+}
